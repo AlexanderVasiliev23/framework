@@ -1,7 +1,8 @@
 <?php
 
+use vendor\core\Router;
+
 require_once '../vendor/lib/functions.php';
-require_once '../vendor/core/Router.php';
 
 define('WWW', __DIR__);
 define('CORE', dirname(__DIR__) . '/vendor/core');
@@ -9,7 +10,8 @@ define('ROOT', dirname(__DIR__));
 define('APP', dirname(__DIR__) . '/app');
 
 spl_autoload_register(function ($class) {
-    $file = APP . "/controllers/$class.php";
+    debug($class);
+    $file = ROOT . '/' . str_replace('\\', '/', $class) . '.php';
     if (file_exists($file)) {
         require_once $file;
     }

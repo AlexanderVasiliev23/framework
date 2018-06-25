@@ -1,5 +1,7 @@
 <?php
 
+namespace vendor\core;
+
 class Router
 {
     /**
@@ -82,7 +84,7 @@ class Router
     public static function dispatch($url)
     {
         if (self::matchRoute($url)) {
-            $controller = self::upperCaseCamel(self::$route['controller']);
+            $controller = 'app\controllers\\' . self::upperCaseCamel(self::$route['controller']);
             if (class_exists($controller)) {
                 $cObj = new $controller;
                 $action = self::lowerCaseCamel(self::$route['action']) . 'Action';
