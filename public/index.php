@@ -10,7 +10,6 @@ define('ROOT', dirname(__DIR__));
 define('APP', dirname(__DIR__) . '/app');
 
 spl_autoload_register(function ($class) {
-    debug($class);
     $file = ROOT . '/' . str_replace('\\', '/', $class) . '.php';
     if (file_exists($file)) {
         require_once $file;
@@ -19,13 +18,13 @@ spl_autoload_register(function ($class) {
 
 $query = rtrim($_SERVER['QUERY_STRING'], '/');
 
-Router::add('^pages/?(?<action>[a-z-]+)?$', ['controller' => 'Posts', 'action' => 'index']);
+Router::add('^page/(?<action>[a-z-]+)/(?<alias>[a-z-]+)$', ['controller' => 'Page']);
+Router::add('^page/(?<alias>[a-z-]+)$', ['controller' => 'Page', 'action' => 'view']);
 
 // default routes
 Router::add('^$', ['controller' => 'Main', 'action' => 'index']);
 Router::add('^(?<controller>[a-z-]+)/?(?<action>[a-z-]+)?$');
 
-$test = Router::dispatch($query);
+Router::dispatch($query);
 
-dd($test);
 

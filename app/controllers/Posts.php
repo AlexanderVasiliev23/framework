@@ -2,15 +2,19 @@
 
 namespace app\controllers;
 
-class Posts
+use vendor\core\base\Controller;
+
+class Posts extends Controller
 {
     public function indexAction()
     {
         echo __METHOD__;
     }
 
-    public function viewAction()
+    public function testAction()
     {
+        debug($this->route);
+
         echo __METHOD__;
     }
 

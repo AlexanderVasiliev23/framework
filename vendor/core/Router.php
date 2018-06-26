@@ -64,11 +64,10 @@ class Router
                         $route[$k] = $v;
                     }
                 }
-
                 if ( ! isset($route['action'])) {
                     $route['action'] = 'index';
                 }
-
+                $route['controller'] = self::upperCamelCase($route['controller']);
                 self::$route = $route;
                 return true;
             }
@@ -83,11 +82,12 @@ class Router
      */
     public static function dispatch($url)
     {
+        $url = self::removeQueryString($url);
         if (self::matchRoute($url)) {
-            $controller = 'app\controllers\\' . self::upperCaseCamel(self::$route['controller']);
+            $controller = 'app\controllers\\' . self::$route['controller'];
             if (class_exists($controller)) {
-                $cObj = new $controller;
-                $action = self::lowerCaseCamel(self::$route['action']) . 'Action';
+                $cObj = new $controller(self::$route);
+                $action = self::lowerCamelCase(self::$route['action']) . 'Action';
                 if (method_exists($cObj, $action)) {
                     $cObj->$action();
                 } else {
@@ -108,7 +108,7 @@ class Router
      * @param $name
      * @return mixed
      */
-    private static function upperCaseCamel($name)
+    private static function upperCamelCase($name)
     {
         return str_replace('-', '', ucwords($name, '-'));
     }
@@ -119,8 +119,26 @@ class Router
      * @param $name
      * @return mixed
      */
-    private static function lowerCaseCamel($name)
+    private static function lowerCamelCase($name)
     {
-        return lcfirst(self::upperCaseCamel($name));
+        return lcfirst(self::upperCamelCase($name));
+    }
+
+    /**
+     * Удалить из строки GET параметры
+     *
+     * @param $url
+     * @return string
+     */
+    private static function removeQueryString($url)
+    {
+        if ($url) {
+            $params = explode('&', $url, 2);
+            if (false === strpos($params[0], '=')) {
+                return rtrim($params[0], '/');
+            } else {
+                return '';
+            }
+        }
     }
 }

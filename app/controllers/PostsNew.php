@@ -9,7 +9,7 @@ class PostsNew
         echo __METHOD__;
     }
 
-    public function viewAction()
+    public function testAction()
     {
         echo __METHOD__;
     }
