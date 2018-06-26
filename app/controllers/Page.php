@@ -8,8 +8,6 @@ class Page extends Controller
 {
     public function viewAction()
     {
-        debug($_GET);
-
         echo __METHOD__;
     }
 }
