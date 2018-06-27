@@ -11,7 +11,26 @@ abstract class Controller
      */
     public $route = [];
 
+    /**
+     * Текущий вид
+     *
+     * @var
+     */
     public $view;
+
+    /**
+     * Текущий шаблон
+     *
+     * @var string
+     */
+    public $layout;
+
+    /**
+     * Пользовательские данные, передаваемые в шаблон
+     *
+     * @var array
+     */
+    public $vars = [];
 
     /**
      * Controller constructor.
@@ -21,11 +40,22 @@ abstract class Controller
     {
         $this->route = $route;
         $this->view = $route['action'];
+    }
 
-        $view = APP . "/views/{$route['controller']}/{$this->view}.php";
+    /**
+     * Получить вид
+     */
+    public function getView()
+    {
+        $vObj = new View($this->route, $this->layout, $this->view);
+        $vObj->render($this->vars);
+    }
 
-        if (is_file($view)) {
-            include $view;
-        }
+    /**
+     * @param $vars
+     */
+    public function set($vars)
+    {
+        $this->vars = $vars;
     }
 }

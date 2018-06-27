@@ -4,6 +4,8 @@ use vendor\core\Router;
 
 require_once '../vendor/lib/functions.php';
 
+define('BASE_URL', 'http://localhost/framework');
+define('APP_NAME', 'framework');
 define('WWW', __DIR__);
 define('CORE', dirname(__DIR__) . '/vendor/core');
 define('ROOT', dirname(__DIR__));

@@ -2,10 +2,17 @@
 
 namespace app\controllers;
 
-class Main
+class Main extends App
 {
     public function indexAction()
     {
-        echo __METHOD__;
+        $name = 'Тестовое имя';
+
+        $colors = [
+            'white' => 'белый',
+            'black' => 'черный'
+        ];
+
+        $this->set(compact('name', 'colors'));
     }
 }
