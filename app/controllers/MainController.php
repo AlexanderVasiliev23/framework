@@ -10,7 +10,7 @@ class MainController extends AppController
     {
         $model = new Main();
 
-        $posts = $model->findAll();
+        $posts = $model->findLike('екс', 'text');
 
         $title = 'PAGE TITLE';
 
