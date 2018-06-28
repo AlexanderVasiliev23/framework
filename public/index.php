@@ -2,12 +2,13 @@
 
 use vendor\core\Router;
 
-require_once '../vendor/lib/functions.php';
+require_once '../vendor/libs/functions.php';
 
 define('BASE_URL', 'http://localhost/framework');
 define('APP_NAME', 'framework');
 define('WWW', __DIR__);
 define('CORE', dirname(__DIR__) . '/vendor/core');
+define('LIBS', dirname(__DIR__) . '/vendor/libs');
 define('ROOT', dirname(__DIR__));
 define('APP', dirname(__DIR__) . '/app');
 define('LAYOUT', 'default');

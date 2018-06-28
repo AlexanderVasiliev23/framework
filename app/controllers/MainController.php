@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use R;
 use app\models\Main;
 
 class MainController extends AppController
@@ -10,7 +11,7 @@ class MainController extends AppController
     {
         $model = new Main();
 
-        $posts = $model->findLike('екс', 'text');
+        $posts = R::findOne($model->table);
 
         $title = 'PAGE TITLE';
 
